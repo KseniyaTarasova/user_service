@@ -24,3 +24,16 @@ CREATE TABLE IF NOT EXISTS card_info
 CREATE INDEX users_surname ON users (surname);
 
 CREATE INDEX card_info_holder ON card_info (holder);
+
+CREATE OR REPLACE FUNCTION update_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at := CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_update_timestamp
+BEFORE UPDATE ON users
+FOR EACH ROW
+EXECUTE PROCEDURE update_timestamp();
