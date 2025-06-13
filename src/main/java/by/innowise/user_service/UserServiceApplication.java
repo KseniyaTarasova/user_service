@@ -1,4 +1,4 @@
-package by.bot.user_service;
+package by.innowise.user_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
