@@ -1,4 +1,4 @@
-package by.bot.user_service;
+package by.innowise.user_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

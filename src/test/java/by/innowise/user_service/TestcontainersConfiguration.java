@@ -1,4 +1,4 @@
-package by.bot.user_service;
+package by.innowise.user_service;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
