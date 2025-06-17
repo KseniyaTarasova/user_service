@@ -1,12 +1,9 @@
 plugins {
     java
+    jacoco
     id("org.springframework.boot") version "3.5.0"
     id("io.spring.dependency-management") version "1.1.7"
-    jacoco
-}
-
-jacoco {
-    toolVersion = "0.8.12"
+    id("org.sonarqube") version "4.4.1.3373"
 }
 
 group = "by.innowise"
@@ -15,6 +12,19 @@ version = "0.0.1-SNAPSHOT"
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "innowise-app")
+        property("sonar.host.url", "http://localhost:9000")
+        property("sonar.login", System.getenv("SONARQUBE_TOKEN"))
+        property("sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
     }
 }
 
