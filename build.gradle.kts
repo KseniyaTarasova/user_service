@@ -16,7 +16,7 @@ java {
 
 sonar {
     properties {
-        property("sonar.projectKey", "innowise-app")
+        property("sonar.projectKey", "user_service")
         property("sonar.host.url", "http://localhost:9000")
         property("sonar.login", System.getenv("SONARQUBE_TOKEN"))
         property("sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
