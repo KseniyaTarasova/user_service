@@ -63,7 +63,7 @@ val exclusions = listOf(
     "**/config/**",
     "**/dto/**",
     "**/mapper/**",
-    "**/controller/**"
+    "**/UserServiceApplication.*"
 )
 
 tasks.jacocoTestReport {
