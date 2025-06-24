@@ -4,7 +4,8 @@ import by.innowise.user_service.dto.user.CreateUserDto;
 import by.innowise.user_service.dto.user.UpdateUserDto;
 import by.innowise.user_service.dto.user.UserDto;
 import by.innowise.user_service.entity.User;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

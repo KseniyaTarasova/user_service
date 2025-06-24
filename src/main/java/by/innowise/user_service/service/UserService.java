@@ -23,7 +23,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    @Transactional
     public UserDto createUser(CreateUserDto dto) {
         User user = userMapper.toEntity(dto);
         User savedUser = userRepository.save(user);
