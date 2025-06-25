@@ -10,7 +10,6 @@ import by.innowise.user_service.exception.CardNotFoundException;
 import by.innowise.user_service.filter.CardSpecification;
 import by.innowise.user_service.mapper.CardInfoMapper;
 import by.innowise.user_service.repository.CardInfoRepository;
-import by.innowise.user_service.utils.CardNumberGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -25,7 +24,6 @@ public class CardInfoService {
     private final CardInfoRepository cardRepository;
     private final CardInfoMapper cardMapper;
     private final UserService userService;
-    private final CardNumberGenerator generator;
 
     @Transactional
     public CardDto createCard(CreateCardDto dto) {
@@ -33,9 +31,6 @@ public class CardInfoService {
         User user = userService.getUserById(dto.getUserId());
 
         card.setUser(user);
-        card.setHolder(String.format("%s %s", user.getName(), user.getSurname()));
-        card.setNumber(generator.generateCardNumber());
-
         user.getCards().add(card);
 
         CardInfo savedCard = cardRepository.save(card);
