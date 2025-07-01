@@ -11,6 +11,9 @@ import by.innowise.user_service.repository.UserRepository;
 import by.innowise.user_service.filter.UserSpecification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,7 +35,9 @@ public class UserService {
         return userMapper.toDto(savedUser);
     }
 
+
     @Transactional
+    @CachePut(value = "user", key = "#id")
     public UserDto updateUser(Long id, UpdateUserDto dto) {
         User user = getUserOrThrow(id);
 
@@ -46,6 +51,7 @@ public class UserService {
     }
 
     @Transactional
+    @CacheEvict(value = "user", key = "#id")
     public void deleteUser(Long id) {
         User user = getUserOrThrow(id);
 
@@ -55,6 +61,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "user", key = "#id")
     public UserDto getUserDtoById(Long id) {
         User user = getUserOrThrow(id);
 
