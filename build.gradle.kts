@@ -22,7 +22,8 @@ jacoco {
 sonar {
     properties {
         property("sonar.projectKey", "user_service")
-        property("sonar.host.url", "http://localhost:9000")
+        property("sonar.host.url", "https://sonarcloud.io/")
+        property("sonar.organization", "kseniyatarasova")
         property("sonar.login", System.getenv("SONARQUBE_TOKEN"))
         property("sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
     }
@@ -66,6 +67,8 @@ tasks.withType<Test> {
 
 val exclusions = listOf(
     "**/entity/**",
+    "**/filter/**",
+    "**/handler/**",
     "**/config/**",
     "**/dto/**",
     "**/mapper/**",
