@@ -49,3 +49,6 @@ jobs:
         run: ./gradlew sonarqube --no-daemon
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+
+      - name: Build Docker Image
+        run: docker build -t user-service:latest .
