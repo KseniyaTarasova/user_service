@@ -37,6 +37,8 @@ public class UserControllerIT extends AbstractPostgresIT {
     @Autowired
     private UserRepository userRepository;
 
+    private Long userId;
+
     @BeforeEach
     void setUp() {
         userRepository.deleteAll();
@@ -67,6 +69,7 @@ public class UserControllerIT extends AbstractPostgresIT {
                 .build();
 
         userRepository.saveAll(List.of(user1, user2, user3, user4));
+        userId = user1.getId();
     }
 
     @Test
@@ -95,7 +98,7 @@ public class UserControllerIT extends AbstractPostgresIT {
         updateUserDto.setBirthDate(LocalDate.of(1995, 4, 12));
         updateUserDto.setEmail("alice@example.com");
 
-        mockMvc.perform(put(BASE_URL + "/{id}", 1L)
+        mockMvc.perform(put(BASE_URL + "/{id}", userId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updateUserDto)))
                 .andExpect(status().isOk())
@@ -111,7 +114,7 @@ public class UserControllerIT extends AbstractPostgresIT {
         updateUserDto.setBirthDate(LocalDate.of(1995, 4, 12));
         updateUserDto.setEmail("alice@example.com");
 
-        mockMvc.perform(put(BASE_URL + "/{id}", 100L)
+        mockMvc.perform(put(BASE_URL + "/{id}", 0L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updateUserDto)))
                 .andExpect(status().isNotFound());
@@ -119,13 +122,13 @@ public class UserControllerIT extends AbstractPostgresIT {
 
     @Test
     void testDeleteUser() throws Exception {
-        mockMvc.perform(delete(BASE_URL + "/{id}", 1L))
+        mockMvc.perform(delete(BASE_URL + "/{id}", userId))
                 .andExpect(status().isNoContent());
     }
 
     @Test
     void testGetUserById() throws Exception {
-        mockMvc.perform(get(BASE_URL + "/{id}", 1L))
+        mockMvc.perform(get(BASE_URL + "/{id}", userId))
                 .andExpect(status().isFound())
                 .andExpect(jsonPath("$.name").value("Alice"))
                 .andExpect(jsonPath("$.surname").value("Smith"));
